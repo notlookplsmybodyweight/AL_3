@@ -1,28 +1,13 @@
-#include"Player.h"
+﻿#include"Player.h"
+#include<cassert>
 
-void Player::initialize() {
-assert(model_);
+void Player::Initialize() { assert(model_); }
 
-
-
-
-}
-
-Player::Player() {}
-
-Player::~Player() {}
-
-void Player::Update() {
+void Player::Update(){
 
 
 }
-
-void Player::Draw() {
-
-
-
-
-	model_->Draw();
+void Player::Draw(){
 
 
 }

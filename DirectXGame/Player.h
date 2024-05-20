@@ -1,18 +1,25 @@
-#pragma once
-#include "Model.h"
+﻿#include "Model.h"
 #include "WorldTransform.h"
-#include"ViewProjection.h"
-class Player {
+
+class Player{
 public:
-	Player();
-	~Player();
-	void initialize(Model*model_,uint32_t textuerHanndle,ViewProjection * viewprojection);
+	
+	
+	//初期化
+	void Initialize(Model *model,uint32_t texturehundle);
+	//更新
 	void Update();
-	void Draw(worldTransform_,*viewProjection,textureHandle_);
+	//描画
+	void Draw();
+
 
 private:
-	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
-	uint32_t textureHandle_ = 0u;
+	WorldTransform worldtransform_;
+	uint32_t texturehundle_ = 0u;
 
-}
+	
+
+
+
+};
