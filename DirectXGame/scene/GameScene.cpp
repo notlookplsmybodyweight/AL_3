@@ -16,7 +16,7 @@ void GameScene::Initialize() {
 	worldtransform_.Initialize();
 	viewprojection_.Initialize();
 	player_ = new Player();
-	player_ ->Initialize();
+	player_ ->Initialize(model_,textuerhundle_,&viewprojection_);
 
 
 

@@ -45,11 +45,11 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
-	uint32_t textuerhundle_ =0;
 	Model* model_ = nullptr;
+	Player* player_ = nullptr;
+	uint32_t textuerhundle_ =0;
 	ViewProjection viewprojection_;
 	WorldTransform worldtransform_;
-	Player* player_ = nullptr;
 
 
 
