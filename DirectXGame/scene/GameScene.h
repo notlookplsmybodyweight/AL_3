@@ -47,9 +47,9 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 	Model* model_ = nullptr;
 	Player* player_ = nullptr;
-	uint32_t textuerhundle_ =0;
-	ViewProjection viewprojection_;
-	WorldTransform worldtransform_;
+	uint32_t textureHandle_ =0;
+	ViewProjection viewProjection_;
+	WorldTransform worldTransform_;
 
 
 

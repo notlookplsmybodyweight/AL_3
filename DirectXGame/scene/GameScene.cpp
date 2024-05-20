@@ -11,12 +11,12 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-	textuerhundle_ = TextureManager::Load("mario.jpg");
+	textureHandle_ = TextureManager::Load("mario.jpg");
     model_ =  Model::Create();
-	worldtransform_.Initialize();
-	viewprojection_.Initialize();
+	worldTransform_.Initialize();
+	viewProjection_.Initialize();
 	player_ = new Player();
-	player_ ->Initialize(model_,textuerhundle_,&viewprojection_);
+	player_ ->Initialize(model_,textureHandle_,&viewProjection_);
 
 
 

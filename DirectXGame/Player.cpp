@@ -1,21 +1,21 @@
 ﻿#include"Player.h"
 #include<cassert>
 
-void Player::Initialize(Model* model,uint32_t texturehundle,ViewProjection *viewprojection) {
-	assert(model_);
+void Player::Initialize(Model* model,uint32_t textureHandle,ViewProjection *viewprojection) {
+	assert(model); // assert(model)ではなくassert(model)が入っていた
 	model_ = model;
-	texturehundle_ = texturehundle;
-	viewprojection_ = viewprojection;
-
+	textureHandle_ = textureHandle;
+	worldTransform_.Initialize(); // そもそもworldTransform.Initializeが抜けていた
+	viewProjection_ = viewprojection;
 
 
 }
 
 void Player::Update() { 
-	worldtransform_.TransferMatrix();
+	worldTransform_.TransferMatrix();
 
 }
 void Player::Draw() { 
-	model_->Draw(worldtransform_, *viewprojection_, texturehundle_);
+	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
 
 }
