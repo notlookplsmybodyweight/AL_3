@@ -1,5 +1,5 @@
 #pragma once
-
+//一番上に書かない
 #include "Audio.h"
 #include "DirectXCommon.h"
 #include "Input.h"
@@ -9,6 +9,11 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "Player.h"
+#include "MyMath.h"
+#include"DebugCamera.h"
+
+#include<vector>
+
 
 /// <summary>
 /// ゲームシーン
@@ -46,10 +51,17 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	Model* model_ = nullptr;
+	Model* modelBlock_ = nullptr;
 	Player* player_ = nullptr;
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
+	std::vector <WorldTransform*> worldTransformBlocks_;
+	//std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
+	bool isDebugCameraActive = false;
+	DebugCamera* debugCamera_ = nullptr;
+
+
 
 
 

@@ -1,10 +1,20 @@
 #include "GameScene.h"
 #include "TextureManager.h"
+#include "WorldTransform.h"
 #include <cassert>
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete player_; }
+GameScene::~GameScene() { delete player_,
+delete model_,
+delete modelBlock_,
+delete debugCamera_;
+	for (WorldTransform* worldTrandformBlock: worldTransformBlocks_) {
+		delete worldTrandformBlock;
+		worldTransformBlocks_.clear();
+		
+	}
+}
 
 void GameScene::Initialize() {
 
@@ -13,6 +23,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");
     model_ =  Model::Create();
+	modelBlock_ = Model::Create();
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
@@ -23,9 +34,27 @@ void GameScene::Initialize() {
 
 }
 
-void GameScene::Update() { player_->Update(); }
+void GameScene::Update() {
+	player_->Update(); 
+//ブロックの更新
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+	
+		worldTransformBlock->matWorld_ = MakeAffineMatrix(worldTransformBlock->scale_,worldTransformBlock->rotation_,worldTransformBlock->translation_);
+		
+		
+		worldTransformBlock->TransferMatrix();
+
+
+
+
+	}
+
+
+
+}
 
 void GameScene::Draw() {
+
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -50,7 +79,10 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	player_->Draw();
+	//player_->Draw();
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+		modelBlock_->Draw(*worldTransformBlock, viewProjection_);
+	}
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理

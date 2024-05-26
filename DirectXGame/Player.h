@@ -15,6 +15,7 @@ public:
 
 private:
 	Model* model_ = nullptr;
+	
 	WorldTransform worldTransform_;
 	ViewProjection* viewProjection_ = nullptr;
 	uint32_t textureHandle_ = 0u;
