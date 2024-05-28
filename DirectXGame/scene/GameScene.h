@@ -56,9 +56,9 @@ private: // メンバ変数
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
-	std::vector <WorldTransform*> worldTransformBlocks_;
+	std::vector<std::vector <WorldTransform*>>worldTransformBlocks_;
 	//std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
-	bool isDebugCameraActive = false;
+	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
 
 
