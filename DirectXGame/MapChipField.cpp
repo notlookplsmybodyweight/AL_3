@@ -27,7 +27,7 @@ void LoadMapChipCsv {
     ResetMapChipData();
     
     std::ifstream file;
-	file.open(/map.csv);
+	file.open("map.csv");
 	assert(file.is_open);
 	std::stream mapChipCsv;
 	mapChipCsv;
