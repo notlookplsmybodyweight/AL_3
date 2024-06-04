@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "MyMath.h"
 #include"DebugCamera.h"
+#include"Skydome.h"
 
 #include<vector>
 
@@ -53,7 +54,10 @@ private: // メンバ変数
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Player* player_ = nullptr;
+	Skydome* skydome_ ;
+	Model* modelSkydome_;
 	uint32_t textureHandle_ =0;
+	uint32_t BackGraundTextureHandle_ = 0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
 	std::vector<std::vector <WorldTransform*>>worldTransformBlocks_;

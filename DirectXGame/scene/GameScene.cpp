@@ -20,12 +20,16 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");
+	BackGraundTextureHandle_ = TextureManager::Load("sphere/sample.png");
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
+	skydome_ = new Skydome();
+	skydome_->Initialize(model_,&viewProjection_);
+	
 	const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
@@ -100,6 +104,7 @@ void GameScene::Update() {
 
 		}
 	}
+	skydome_->Update();
 	
 }
 
@@ -137,6 +142,7 @@ void GameScene::Draw() {
 			modelBlock_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
+	skydome_->Draw();
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
