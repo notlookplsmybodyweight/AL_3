@@ -22,10 +22,17 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
+<<<<<<< Updated upstream
+=======
+	skydome_ = new Skydome();
+	skydome_->Initialize(modelSkydome_,textureHandle_,&viewProjection_);
+	
+>>>>>>> Stashed changes
 	const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
