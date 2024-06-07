@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "MyMath.h"
 #include"DebugCamera.h"
-
+#include"Skydome.h"
 #include<vector>
 
 
@@ -52,7 +52,9 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 	Player* player_ = nullptr;
+	Skydome* skydome_ = nullptr;
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;

@@ -27,12 +27,12 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
-<<<<<<< Updated upstream
-=======
+//<<<<<<< Updated upstream
+//=======
 	skydome_ = new Skydome();
 	skydome_->Initialize(modelSkydome_,textureHandle_,&viewProjection_);
 	
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
