@@ -26,14 +26,15 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, &viewProjection_);
+	Vector3 playerPosition_;
+	player_->Initialize(model_, &viewProjection_,playerPosition_);
 //<<<<<<< Updated upstream
 //=======
 	skydome_ = new Skydome();
 	skydome_->Initialize(modelSkydome_,textureHandle_,&viewProjection_);
 	
 //>>>>>>> Stashed changes
-	const uint32_t kNumBlockHorizontal = 20;
+	/*const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
 	const float kBlockHeight = 2.0f;
@@ -58,8 +59,12 @@ void GameScene::Initialize() {
 
 			}
 		}
-	}
+	}*/
 	debugCamera_ = new DebugCamera(1280, 720);
+	/*void GameScene::GenerateBlocks(){
+		return 
+	};*/
+	//Vector3 playerPosition = mapChipField_->GetMapChipPosiotionByIndex();
 }
 
 void GameScene::Update() {

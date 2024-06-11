@@ -1,5 +1,6 @@
 #pragma once
 //一番上に書かない
+#include<vector>
 #include "Audio.h"
 #include "DirectXCommon.h"
 #include "Input.h"
@@ -12,7 +13,6 @@
 #include "MyMath.h"
 #include"DebugCamera.h"
 #include"Skydome.h"
-#include<vector>
 
 
 /// <summary>
@@ -45,6 +45,8 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+	void GenerateBlocks();
+
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -58,6 +60,7 @@ private: // メンバ変数
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
+	
 	std::vector<std::vector <WorldTransform*>>worldTransformBlocks_;
 	//std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
 	bool isDebugCameraActive_ = false;
