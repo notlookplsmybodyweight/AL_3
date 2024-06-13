@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include"MapChipField.h"
 #include "Player.h"
 #include "MyMath.h"
 #include"DebugCamera.h"
@@ -57,6 +58,7 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 	Player* player_ = nullptr;
 	Skydome* skydome_ = nullptr;
+	MapChipField* mapChipData_ = nullptr;
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;

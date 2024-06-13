@@ -1,18 +1,19 @@
-﻿#include <fstream>
-#include <sstream>
+﻿#include "MapChipField.h"
 #include <assert.h>
+#include <fstream>
 #include <map>
-#include "MapChipField.h"
+#include <sstream>
+#include"Vector3.h"
 namespace {
 std::map<std::string, MapChipType> MapChipTable = {
     {"0", MapChipType::kBlank},
     {"1", MapChipType::kBlock},
 };
-};
+}
 
-void ResetMapChipData() {
-	MapChipField::mapChipData_.data_.clear();
-	mapChipData_.data_.resize(kNumBlockVirtical);
+void MapChipField::ResetMapChipData() {
+	mapChipData_.data.clear();
+	mapChipData_.data.resize(kNumBlockVirtical);
 
 	for (std::vector<MapChipType>& mapChipDataLine : mapChipData_.data) {
 
@@ -26,7 +27,7 @@ void LoadMapChipCsv() {
 	file.open("map.csv");
 	assert(file.is_open);
 	std::stringstream mapChipCsv;
-	
+
 	mapChipCsv << file.rdbuf();
 	file.close();
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
@@ -43,11 +44,10 @@ void LoadMapChipCsv() {
 	}
 }
 
-//MapChipType GetMapChipTypeByindex(uint32_t xindex, uint32_t yindex) {
-//
-//	return MapChipData_.data[yindex][xindex];
-//};
-//MapChipType GetMapChipPositionByindex(uint32_t xindex, uint32_t yindex) { 
-//	return Vector3(kBlockWidth*xindex,kBlockHeight)
-//};
+ MapChipType GetMapChipTypeByindex(uint32_t xindex, uint32_t yindex) {
 
+	return MapChipData_.data[yindex][xindex];
+ };
+ MapChipType GetMapChipPositionByindex(uint32_t xindex, uint32_t yindex) {
+	return Vector3(kBlockWidth*xindex,kBlockHeight)
+ };

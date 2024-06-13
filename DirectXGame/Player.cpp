@@ -16,12 +16,12 @@ void Player::Initialize(Model* model,ViewProjection *viewprojection,const Vector
 }
 
 void Player::Update() { 
-	if (Input::GetInstance()->PushKey(DIK_RIGHT)||Input::GetInstance()->PushKey(DIK_LEFT))
-	worldTransform_.translation_.x+= verosity_.x;
-	worldTransform_.translation_.y+= verosity_.y;
-	worldTransform_.translation_.z += verosity_.z;
-	worldTransform_.TransferMatrix();
-
+	if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
+		worldTransform_.translation_.x += verosity_.x;
+		worldTransform_.translation_.y += verosity_.y;
+		worldTransform_.translation_.z += verosity_.z;
+		worldTransform_.TransferMatrix();
+	}
 
 }
 void Player::Draw() { 
