@@ -2,6 +2,7 @@
 #include <fstream>
 #include <map>
 #include <sstream>
+#include<assert.h>
 namespace {
 std::map<std::string, MapChipType> MapChipTable = {
     {"0", MapChipType::kBlank},
@@ -20,11 +21,12 @@ void ResetMapChipData() {
 }
 void LoadMapChipCsv() {
 	ResetMapChipData();
+	
 
 	std::ifstream file;
 	file.open("map.csv");
 	assert(file.is_open);
-	std::stream mapChipCsv;
+	std::istream mapChipCsv;
 	mapChipCsv;
 	mapChipCsv << file.rdbuf;
 	file.close();
@@ -35,8 +37,8 @@ void LoadMapChipCsv() {
 		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
 			std::string word;
 			getline(line_stream, word, ',');
-			if (mapChipTable.contains(word)) {
-				mapChipData_.data[i][j] = mapChipTable[word];
+			if (MapChipTable.contains(word)) {
+				mapChipData_.data[i][j] = MapChipTable[word];
 			}
 		}
 	}
