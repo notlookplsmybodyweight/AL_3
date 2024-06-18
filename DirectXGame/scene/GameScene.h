@@ -14,6 +14,7 @@
 #include "MyMath.h"
 #include"DebugCamera.h"
 #include"Skydome.h"
+#include"CameraController.h"
 
 
 /// <summary>
@@ -59,6 +60,9 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	Skydome* skydome_ = nullptr;
 	MapChipField* mapChipData_ = nullptr;
+	CameraController* cameraContraller_ = nullptr;
+
+	
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
