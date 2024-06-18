@@ -29,7 +29,7 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	skydome_ = new Skydome();
 	mapChipData_ = new MapChipField();
-	Vector3 playerPosition_;
+	Vector3 playerPosition_ = MapChipField_->GetMapChipPositionByIndex();
 	player_->Initialize(model_, &viewProjection_, playerPosition_);
 	//<<<<<<< Updated upstream
 	//=======

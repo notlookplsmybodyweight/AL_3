@@ -19,6 +19,11 @@ private:
 	WorldTransform worldTransform_;
 	ViewProjection* viewProjection_ = nullptr;
 	uint32_t textureHandle_ = 0u;
+	float turnFirstRotationY_ = 0.0f;
+	float turnTimer_ = 0.0f;
+	static inline const float kTimeTurn = 0.3f;
+	On
+
 
 	
 
