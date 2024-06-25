@@ -30,6 +30,7 @@ void GameScene::Initialize() {
 //<<<<<<< Updated upstream
 //=======
 	skydome_ = new Skydome();
+<<<<<<< Updated upstream
 	skydome_->Initialize(modelSkydome_,textureHandle_,&viewProjection_);
 	
 //>>>>>>> Stashed changes
@@ -37,6 +38,15 @@ void GameScene::Initialize() {
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
 	const float kBlockHeight = 2.0f;
+=======
+	mapChipData_ = new MapChipField();
+	Vector3 playerPosition_;
+	player_->Initialize(model_, &viewProjection_, playerPosition_);
+
+	//<<<<<<< Updated upstream
+	//=======
+	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
+>>>>>>> Stashed changes
 
 	worldTransformBlocks_.resize(kNumBlockVirtical);
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
@@ -60,6 +70,11 @@ void GameScene::Initialize() {
 		}
 	}
 	debugCamera_ = new DebugCamera(1280, 720);
+<<<<<<< Updated upstream
+=======
+	// Vector3 playerPosition = mapChipField_->GetMapChipPosiotionByIndex();
+
+>>>>>>> Stashed changes
 }
 
 void GameScene::Update() {

@@ -16,10 +16,10 @@ void ResetMapChipData() {
 
 	for (std::vector<MapChipType>& mapChipDataLine : mapChipData_.data) {
 
-		mapChipDataLine.resize(kNumBlockHorizontal);
+		mapChipDataLine.resize(MapChipField::kNumBlockHorizontal);
 	}
 }
-void LoadMapChipCsv() {
+void LoadMapChipCsv(const std::string&filepath) {
 	ResetMapChipData();
 	
 
