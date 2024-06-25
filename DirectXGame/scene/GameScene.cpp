@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "MapChipField.h"
 #include "TextureManager.h"
 #include "WorldTransform.h"
 #include <cassert>
@@ -6,7 +7,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete player_, delete model_, delete modelBlock_, delete debugCamera_;
+	delete player_, delete model_, delete modelBlock_, delete debugCamera_, delete mapChipField_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_)
 		for (WorldTransform* worldTrandformBlock : worldTransformBlockLine) {
 			delete worldTrandformBlock;
@@ -27,58 +28,62 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
-//<<<<<<< Updated upstream
-//=======
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv(" Resources / map.csv");
+
+	//<<<<<<< Updated upstream
+	//=======
 	skydome_ = new Skydome();
-<<<<<<< Updated upstream
-	skydome_->Initialize(modelSkydome_,textureHandle_,&viewProjection_);
-	
-//>>>>>>> Stashed changes
+	//<<<<<<< Updated upstream
+	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
+
+	//>>>>>>> Stashed changes
 	const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
 	const float kBlockHeight = 2.0f;
-=======
-	mapChipData_ = new MapChipField();
-	Vector3 playerPosition_;
+	//=======
+
+	//Vector3 playerPosition_;
+
+//	playerPosition_ = mapChipField_->GetMapChipPositionTypeByIndex();
 	player_->Initialize(model_, &viewProjection_, playerPosition_);
 
 	//<<<<<<< Updated upstream
 	//=======
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
->>>>>>> Stashed changes
+	//>>>>>>> Stashed changes]
+	mapChipField_->LoadMapChipCsv("Resource / map.csv ");
+	debugCamera_ = new DebugCamera(1280, 720);
 
-	worldTransformBlocks_.resize(kNumBlockVirtical);
-	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+	
+}
+void GameScene::GenerateBlocks() {
+	uint32_t numBlockVirtical = mapChipField_->GetkNumBlockVirtical();
+	uint32_t numBlockHorizontal = mapChipField_->GetkNumBlockHorizontal();
 
-		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
+	worldTransformBlocks_.resize(numBlockVirtical);
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
+
+		worldTransformBlocks_[i].resize(numBlockHorizontal);
 	}
-	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
 
-		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
-			if (j%2 == (i%2)){
-				worldTransformBlocks_[i][j] = new WorldTransform();
-				worldTransformBlocks_[i][j]->Initialize();
-				worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * j;
-				worldTransformBlocks_[i][j]->translation_.y = kBlockHeight * i;
-		
-			}
-			else {
+		for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
+			if (mapChipField_->GetMapChipTypeByIndex(j,i) == MapChipType::kBlock) {
+				WorldTransform* worldTransform = new WorldTransform();
+				worldTransform->Initialize();
+				worldTransformBlocks_[i][j] = worldTransform;
+				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionTypeByIndex(j,i);
+
+			} else {
 				worldTransformBlocks_[i][j] = nullptr;
-
 			}
 		}
 	}
-	debugCamera_ = new DebugCamera(1280, 720);
-<<<<<<< Updated upstream
-=======
-	// Vector3 playerPosition = mapChipField_->GetMapChipPosiotionByIndex();
-
->>>>>>> Stashed changes
 }
-
 void GameScene::Update() {
-	
+
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
 		if (isDebugCameraActive_ == true)
@@ -87,9 +92,6 @@ void GameScene::Update() {
 			isDebugCameraActive_ = true;
 	}
 #endif
-
-
-
 
 	if (isDebugCameraActive_) {
 		// デバッグカメラの更新
@@ -102,12 +104,10 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
 	}
-	
-	
+
 	debugCamera_->Update();
 	player_->Update();
-	
-	
+
 	// ブロックの更新
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -116,13 +116,9 @@ void GameScene::Update() {
 			if (!worldTransformBlock)
 				continue;
 
-
 			worldTransformBlock->UpdetaMatrix();
-
-
 		}
 	}
-	
 }
 
 void GameScene::Draw() {
@@ -154,7 +150,7 @@ void GameScene::Draw() {
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
-			if (! worldTransformBlock)
+			if (!worldTransformBlock)
 				continue;
 			modelBlock_->Draw(*worldTransformBlock, viewProjection_);
 		}

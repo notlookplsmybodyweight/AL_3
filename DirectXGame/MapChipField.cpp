@@ -1,8 +1,8 @@
-﻿#include <fstream>
+﻿#include "MapChipField.h"
+#include <assert.h>
+#include <fstream>
 #include <map>
 #include <sstream>
-#include<assert.h>
-#include "MapChipField.h"
 namespace {
 std::map<std::string, MapChipType> MapChipTable = {
     {"0", MapChipType::kBlank},
@@ -21,15 +21,14 @@ void MapChipField::ResetMapChipData() {
 		mapChipDataLine.resize(MapChipField::kNumBlockHorizontal);
 	}
 }
-void MapChipField::LoadMapChipCsv(const std::string&filepath) {
+void MapChipField::LoadMapChipCsv(const std::string& filepath) {
 	ResetMapChipData();
-	
 
 	std::ifstream file;
 	file.open("map.csv");
 	assert(file.is_open());
 	std::stringstream mapChipCsv;
-	
+
 	mapChipCsv << file.rdbuf();
 	file.close();
 
@@ -45,4 +44,17 @@ void MapChipField::LoadMapChipCsv(const std::string&filepath) {
 			}
 		}
 	}
+}
+MapChipType MapChipField::GetMapChipTypeByIndex(uint32_t xindex, uint32_t yindex) {
+	if (xindex < 0 || kNumBlockHorizontal - 1 < xindex) {
+		return MapChipType::kBlank;
+	}
+	if (yindex < 0 || kNumBlockVirtical - 1 < yindex) {
+		return MapChipType::kBlank;
+	}
+	return mapChipData_.data[yindex][xindex];
+}
+Vector3 MapChipField::GetMapChipPositionTypeByIndex(uint32_t xindex, uint32_t yindex) {
+	return Vector3(kBlockWidth * xindex, kBlockHeight * (kNumBlockVirtical - 1 - yindex), 0);
+
 }
