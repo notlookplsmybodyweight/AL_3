@@ -45,6 +45,7 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+	void GenerateBlocks();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -55,6 +56,7 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 	Player* player_ = nullptr;
 	Skydome* skydome_ = nullptr;
+	MapChipField* mapChipField_ = nullptr;
 	uint32_t textureHandle_ =0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;

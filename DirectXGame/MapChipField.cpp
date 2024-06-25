@@ -1,35 +1,38 @@
-﻿#include "MapChipField.h"
-#include <fstream>
+﻿#include <fstream>
 #include <map>
 #include <sstream>
 #include<assert.h>
+#include "MapChipField.h"
 namespace {
 std::map<std::string, MapChipType> MapChipTable = {
     {"0", MapChipType::kBlank},
     {"1", MapChipType::kBlock},
 };
 }
+uint32_t MapChipField::GetkNumBlockVirtical() { return kNumBlockVirtical; }
+uint32_t MapChipField::GetkNumBlockHorizontal() { return kNumBlockHorizontal; }
 
-void ResetMapChipData() {
-	mapChipData_.data_.clear();
-	mapChipData_.data_.resize(kNumBlockVirtical);
+void MapChipField::ResetMapChipData() {
+	mapChipData_.data.clear();
+	mapChipData_.data.resize(kNumBlockVirtical);
 
 	for (std::vector<MapChipType>& mapChipDataLine : mapChipData_.data) {
 
 		mapChipDataLine.resize(MapChipField::kNumBlockHorizontal);
 	}
 }
-void LoadMapChipCsv(const std::string&filepath) {
+void MapChipField::LoadMapChipCsv(const std::string&filepath) {
 	ResetMapChipData();
 	
 
 	std::ifstream file;
 	file.open("map.csv");
-	assert(file.is_open);
-	std::istream mapChipCsv;
-	mapChipCsv;
-	mapChipCsv << file.rdbuf;
+	assert(file.is_open());
+	std::stringstream mapChipCsv;
+	
+	mapChipCsv << file.rdbuf();
 	file.close();
+
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
 		std::string line;
 		getline(mapChipCsv, line);
