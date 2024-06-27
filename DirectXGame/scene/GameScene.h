@@ -44,6 +44,9 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	
+	uint32_t soundDataHundle_ = 0;
+
 
 	/// <summary>
 	/// ゲームシーン用

@@ -11,6 +11,7 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	soundDataHundle_ = audio_->LoadWave("")
 	// ファイル名を指定してテクスチャを読み込む
 	textureHundle_ = TextureManager::Load("mario.png");
 	sprite_ = Sprite::Create(textureHundle_, {100, 50});
