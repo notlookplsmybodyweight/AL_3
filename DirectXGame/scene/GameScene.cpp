@@ -1,8 +1,11 @@
 #include "GameScene.h"
-#include "MapChipField.h"
+//#include "MapChipField.h"
 #include "TextureManager.h"
-#include "WorldTransform.h"
+//#include "WorldTransform.h"
+#include"MyMath.h"
 #include <cassert>
+#include <map>
+
 
 GameScene::GameScene() {}
 
@@ -38,16 +41,17 @@ void GameScene::Initialize() {
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
 
 	//>>>>>>> Stashed changes
-	const uint32_t kNumBlockHorizontal = 20;
+
+	/*const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
-	const float kBlockHeight = 2.0f;
+	const float kBlockHeight = 2.0f;*/
 	//=======
 
-	//Vector3 playerPosition_;
+	/*Vector3 playerPosition_;
 
-//	playerPosition_ = mapChipField_->GetMapChipPositionTypeByIndex();
-	player_->Initialize(model_, &viewProjection_, playerPosition_);
+	playerPosition_ = mapChipField_->GetMapChipPositionTypeByIndex(20,1);
+	player_->Initialize(model_, &viewProjection_, playerPosition_);*/
 
 	//<<<<<<< Updated upstream
 	//=======
@@ -76,8 +80,8 @@ void GameScene::GenerateBlocks() {
 				worldTransformBlocks_[i][j] = worldTransform;
 				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionTypeByIndex(j,i);
 
-			} else {
-				worldTransformBlocks_[i][j] = nullptr;
+			//} else {
+				//worldTransformBlocks_[i][j] = nullptr;
 			}
 		}
 	}

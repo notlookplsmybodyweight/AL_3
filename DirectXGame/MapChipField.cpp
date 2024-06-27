@@ -1,8 +1,10 @@
-﻿#include "MapChipField.h"
-#include <assert.h>
+﻿#include <assert.h>
 #include <fstream>
 #include <map>
-#include <sstream>
+#include<sstream>
+#include <string>
+#include<cassert>
+#include"MapChipField.h"
 namespace {
 std::map<std::string, MapChipType> MapChipTable = {
     {"0", MapChipType::kBlank},

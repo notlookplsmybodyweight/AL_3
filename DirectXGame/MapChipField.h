@@ -1,4 +1,5 @@
-﻿#include<vector>
+﻿#include<stdint.h>
+#include<vector>
 #include"Vector3.h"
 
 enum class MapChipType {
