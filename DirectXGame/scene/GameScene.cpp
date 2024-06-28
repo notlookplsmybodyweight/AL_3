@@ -31,7 +31,7 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
 	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resource/map.csv");
+	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
 	//<<<<<<< Updated upstream
 	//=======
@@ -40,12 +40,12 @@ void GameScene::Initialize() {
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
 
 	//>>>>>>> Stashed changes
-
+	GenerateBlocks();
 	/*const uint32_t kNumBlockHorizontal = 20;
 	const uint32_t kNumBlockVirtical = 10;
 	const float kBlockWidth = 2.0f;
 	const float kBlockHeight = 2.0f;*/
-	//=======
+//	=======
 
 	/*Vector3 playerPosition_;
 
@@ -56,7 +56,7 @@ void GameScene::Initialize() {
 	//=======
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
 	//>>>>>>> Stashed changes]
-	mapChipField_->LoadMapChipCsv("Resource/map.csv ");
+	//mapChipField_->LoadMapChipCsv("Resource/map.csv ");
 	debugCamera_ = new DebugCamera(1280, 720);
 }
 void GameScene::GenerateBlocks() {
