@@ -1,20 +1,19 @@
 #pragma once
-//一番上に書かない
+// 一番上に書かない
+#include <vector>
 #include "Audio.h"
+#include "DebugCamera.h"
 #include "DirectXCommon.h"
 #include "Input.h"
+#include "MapChipField.h"
 #include "Model.h"
+#include "MyMath.h"
+#include "Player.h"
 #include "SafeDelete.h"
+#include "Skydome.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Player.h"
-#include "MyMath.h"
-#include "MapChipField.h"
-#include"DebugCamera.h"
-#include"Skydome.h"
-#include<vector>
-
 
 /// <summary>
 /// ゲームシーン
@@ -57,18 +56,14 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 	Player* player_ = nullptr;
 	Skydome* skydome_ = nullptr;
-	MapChipField * mapChipField_ ;
-	uint32_t textureHandle_ =0;
+	MapChipField* mapChipField_;
+	uint32_t textureHandle_ = 0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
-	std::vector<std::vector <WorldTransform*>>worldTransformBlocks_;
-	//std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	// std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-
-
-
-
 
 	/// <summary>
 	/// ゲームシーン用

@@ -1,10 +1,12 @@
 ﻿#include <assert.h>
+#include <cassert>
 #include <fstream>
 #include <map>
-#include<sstream>
+#include <sstream>
 #include <string>
-#include<cassert>
-#include"MapChipField.h"
+#include "MapChipField.h"
+
+
 namespace {
 std::map<std::string, MapChipType> MapChipTable = {
     {"0", MapChipType::kBlank},
@@ -27,11 +29,11 @@ void MapChipField::LoadMapChipCsv(const std::string& filepath) {
 	ResetMapChipData();
 
 	std::ifstream file;
-	file.open("map.csv");
+	file.open(filepath );
 	assert(file.is_open());
+	
 	std::stringstream mapChipCsv;
-
-	mapChipCsv << file.rdbuf();
+	 mapChipCsv << file.rdbuf();
 	file.close();
 
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
@@ -58,5 +60,4 @@ MapChipType MapChipField::GetMapChipTypeByIndex(uint32_t xindex, uint32_t yindex
 }
 Vector3 MapChipField::GetMapChipPositionTypeByIndex(uint32_t xindex, uint32_t yindex) {
 	return Vector3(kBlockWidth * xindex, kBlockHeight * (kNumBlockVirtical - 1 - yindex), 0);
-
 }

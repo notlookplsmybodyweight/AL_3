@@ -1,5 +1,5 @@
-﻿#include "Skydome.h"
-#include<cassert>
+﻿#include<cassert>
+#include "Skydome.h"
 void Skydome::Initialize(Model* model, uint32_t texturHandle, ViewProjection* viewprojection) {
 	assert(model);
 	texturHandle_ = texturHandle;
