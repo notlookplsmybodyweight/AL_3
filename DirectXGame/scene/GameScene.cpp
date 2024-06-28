@@ -11,9 +11,18 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	soundDataHandle_ = audio_->LoadWave("fanfare.wav");
+	audio_->PlayWave(soundDataHandle_);
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	if (input_->TriggerKey(DIK_SPACE)) {
+		audio_->StopWave(voiceHandle_);
+
+	}
+}
 
 void GameScene::Draw() {
 
