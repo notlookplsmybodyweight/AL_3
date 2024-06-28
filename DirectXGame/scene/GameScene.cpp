@@ -76,6 +76,7 @@ void GameScene::Update() {
 	}
 #endif
 
+
 	if (isDebugCameraActive_) {
 		// デバッグカメラの更新
 		debugCamera_->Update();
