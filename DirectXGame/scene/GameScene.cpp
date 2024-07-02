@@ -1,13 +1,16 @@
-#include "GameScene.h"
-#include "MapChipField.h"
-#include "TextureManager.h"
-#include "WorldTransform.h"
+
+// #include "MapChipField.h"
+//#include "WorldTransform.h"
 #include <cassert>
+#include <map>
+#include "MyMath.h"
+#include "GameScene.h"
+#include "TextureManager.h"
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete player_, delete model_, delete modelBlock_, delete debugCamera_;
+	delete player_, delete model_, delete modelBlock_, delete debugCamera_, delete mapChipField_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_)
 		for (WorldTransform* worldTrandformBlock : worldTransformBlockLine) {
 			delete worldTrandformBlock;
@@ -27,44 +30,61 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
+	player_->Initialize(model_, textureHandle_, &viewProjection_);
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv("Resources/map.csv");
+
+	//<<<<<<< Updated upstream
+	//=======
 	skydome_ = new Skydome();
-	mapChipData_ = new MapChipField();
-	Vector3 playerPosition_ = MapChipField_->GetMapChipPositionByIndex();
-	player_->Initialize(model_, &viewProjection_, playerPosition_);
+	//<<<<<<< Updated upstream
+	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
+
+	//>>>>>>> Stashed changes
+	GenerateBlocks();
+	/*const uint32_t kNumBlockHorizontal = 20;
+	const uint32_t kNumBlockVirtical = 10;
+	const float kBlockWidth = 2.0f;
+	const float kBlockHeight = 2.0f;*/
+	//	=======
+
+	 //playerposition_;
+
+	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(20, 1);
+	player_->Initialize(model_ ,textureHandle_, &viewProjection_ );
+
 	//<<<<<<< Updated upstream
 	//=======
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
+	//>>>>>>> Stashed changes]
+	// mapChipField_->LoadMapChipCsv("Resource/map.csv ");
+	debugCamera_ = new DebugCamera(1280, 720);
+}
+void GameScene::GenerateBlocks() {
+	uint32_t numBlockVirtical = mapChipField_->GetkNumBlockVirtical();
+	uint32_t numBlockHorizontal = mapChipField_->GetkNumBlockHorizontal();
 
-	void GenerateBlocks() {
-		uint32_t numBlockVirtical = mapChipField_ const uint32_t kNumBlockHorizontal = 20;
-		const uint32_t kNumBlockVirtical = 10;
-		const float kBlockWidth = 2.0f;
-		const float kBlockHeight = 2.0f;
+	worldTransformBlocks_.resize(numBlockVirtical);
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
 
-		worldTransformBlocks_.resize(kNumBlockVirtical);
-		for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		worldTransformBlocks_[i].resize(numBlockHorizontal);
+	}
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
 
-			worldTransformBlocks_[i].resize(kNumBlockHorizontal);
-		}
-		for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+				WorldTransform* worldTransform = new WorldTransform();
+				worldTransform->Initialize();
+				worldTransformBlocks_[i][j] = worldTransform;
+				worldTransformBlocks_[i][j]->translation_ =
+				    mapChipField_->GetMapChipPositionTypeByIndex(j, i);
 
-			for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
-				if (j % 2 == (i % 2)) {
-					worldTransformBlocks_[i][j] = new WorldTransform();
-					worldTransformBlocks_[i][j]->Initialize();
-					worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * j;
-					worldTransformBlocks_[i][j]->translation_.y = kBlockHeight * i;
-
-				} else {
-					worldTransformBlocks_[i][j] = nullptr;
-				}
+				//} else {
+				// worldTransformBlocks_[i][j] = nullptr;
 			}
 		}
-	};
-	debugCamera_ = new DebugCamera(1280, 720);
-	// Vector3 playerPosition = mapChipField_->GetMapChipPosiotionByIndex();
+	}
 }
-
 void GameScene::Update() {
 
 #ifdef _DEBUG
