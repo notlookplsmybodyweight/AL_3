@@ -27,6 +27,7 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
 	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
+	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
