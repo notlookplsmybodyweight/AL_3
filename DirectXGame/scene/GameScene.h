@@ -46,17 +46,19 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
-	void GenerateBlocks();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	//モデルデータ
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Model* modelSkydome_ = nullptr;
 	Model* modelPlayer_ = nullptr;
+	//自キャラ
 	Player* player_ = nullptr;
+	//スカイドーム
 	Skydome* skydome_ = nullptr;
 	MapChipField* mapChipField_;
 	uint32_t textureHandle_ = 0;
@@ -70,4 +72,5 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	void GenerateBlocks();
 };

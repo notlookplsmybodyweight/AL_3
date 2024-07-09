@@ -8,7 +8,7 @@
 #include"Easing.h"
 
 //uint32_t textureHandle 
-void Player::Initialize(Model* model, ViewProjection* viewProjection,Vector3 position) {
+void Player::Initialize(Model* model, ViewProjection* viewProjection,const Vector3 position) {
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
@@ -20,7 +20,8 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection,Vector3 pos
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 
 	// 引数の内容をメンバ変数に記録
-	model= Model::CreateFromOBJ("player", true); //	textureHandle_ = textureHandle;
+	assert(model);
+	model_ = model; //	textureHandle_ = textureHandle;
 }
 
 
@@ -29,7 +30,8 @@ void Player::Update() {
 	// 移動入力
 	if (onGround_) {
 		// 左右移動操作
-		if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
+		if (Input::GetInstance()->PushKey(DIK_RIGHT) ||
+			Input::GetInstance()->PushKey(DIK_LEFT)) {
 
 			// 左右加速
 			Vector3 acceleration = {};
@@ -175,7 +177,7 @@ turnTimer_ = 0.7f;
 void Player::Draw() {
 
 	// 3Dモデルを描画
-	model_->Draw(worldTransform_, *viewProjection_);
+	model_->Draw(worldTransform_, *viewProjection_,textureHandle_);
 }
 //void Player::Draw() { 
 //	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);

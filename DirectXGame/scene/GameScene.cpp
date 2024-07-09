@@ -3,6 +3,7 @@
 //#include "WorldTransform.h"
 #include <cassert>
 #include <map>
+#include<cstdint>
 #include "MyMath.h"
 #include "GameScene.h"
 #include "TextureManager.h"
@@ -10,7 +11,9 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete player_, delete model_, delete modelBlock_, delete debugCamera_, delete mapChipField_;
+	
+	delete player_, delete model_, delete modelBlock_, delete debugCamera_,
+	    delete mapChipField_,delete skydome_,delete modelSkydome_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_)
 		for (WorldTransform* worldTrandformBlock : worldTransformBlockLine) {
 			delete worldTrandformBlock;
@@ -25,14 +28,14 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	model_ = Model::Create();
-	modelBlock_ = Model::Create();
+	modelPlayer_ = Model::CreateFromOBJ("player");
+	modelBlock_ = Model::CreateFromOBJ("block");
 	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
-	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
-	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(20, 1);
 	player_ = new Player();
-	player_->Initialize(model_, &viewProjection_,playerposition_);
+	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(2, 18);
+	player_->Initialize(modelPlayer_, &viewProjection_,playerposition_);
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
@@ -87,7 +90,7 @@ void GameScene::GenerateBlocks() {
 	}
 }
 void GameScene::Update() {
-
+	skydome_->Update();
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
 		if (isDebugCameraActive_ == true)
@@ -147,10 +150,11 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
-
+	skydome_->Draw();
+	player_->Draw();
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	// player_->Draw();
+	
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -171,6 +175,7 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
+
 	/// </summary>
 
 	// スプライト描画後処理
