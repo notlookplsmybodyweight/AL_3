@@ -11,9 +11,11 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	textuerHandle_ = TextureManager::Load("white1x1.png");
 	soundDataHandle_ = audio_->LoadWave("fanfare.wav");
 	audio_->PlayWave(soundDataHandle_);
 	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+
 
 }
 
