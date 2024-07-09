@@ -1,6 +1,6 @@
 ﻿
-#include "MyMath.h"
 
+#include "MyMath.h"
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
 	Matrix4x4 result = Multiply(
 	    Multiply(MakeRotateXMatrix(rotate.x), MakeRotateYMatrix(rotate.y)),
@@ -91,3 +91,4 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Ve
 
 		return result;
 	}
+	

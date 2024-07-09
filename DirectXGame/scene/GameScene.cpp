@@ -30,8 +30,9 @@ void GameScene::Initialize() {
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
+	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(20, 1);
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, &viewProjection_);
+	player_->Initialize(model_, &viewProjection_,playerposition_);
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
@@ -51,8 +52,7 @@ void GameScene::Initialize() {
 
 	 //playerposition_;
 
-	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(20, 1);
-	player_->Initialize(model_ ,textureHandle_, &viewProjection_ );
+	player_->Initialize(model_, &viewProjection_,playerposition_ );
 
 	//<<<<<<< Updated upstream
 	//=======

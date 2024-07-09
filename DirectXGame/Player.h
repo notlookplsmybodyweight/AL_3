@@ -8,12 +8,21 @@ public:
 		kRight,
 		kLeft,
 	};
-
+	//typedef struct AABB {
+	//	Vector3 min;
+	//	Vector3 max;
+	//	/*GetAABBはエネミーとプレイヤーに定義する
+	//	IsCollision関数もつくる関数の中身retun(
+	//	aabb1.min.x<=aabb2.max.x&&aabb1.max.x<=aabb2.min.x
+	//	&&aabb1.min.y<=aabb2/max.y&&aabb1.min.y>=aabb2.max.y
+	//	&&aabb1.min.z<=aabb2.max.z&&aabb1.max.z>aabb2.min.z);*/ 
+	//    
+	//};
 	/// <summary>
 	/// 初期化
 	/// </summary>
-		void Initialize(Model* model, uint32_t textureHandle, ViewProjection* viewProjection);
-	void Initialize(const Vector3& position, ViewProjection* viewProjection);
+		void Initialize(Model* model, ViewProjection* viewProjection,Vector3 position);
+	//void Initialize(const Vector3& position, ViewProjection* viewProjection);
 
 	/// <summary>
 	/// 更新
@@ -24,6 +33,7 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
+	//AABB GetAABB() { WorldPos.x - kWidth / 2, WorldPos.y - kHeight / 2, worldPos.z - kWidth / 2; }
 
 private:
 	// ワールド変換データ
