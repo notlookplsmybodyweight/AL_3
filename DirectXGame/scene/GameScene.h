@@ -10,9 +10,10 @@
 #include "Model.h"
 #include "MyMath.h"
 #include "Player.h"
-#include "SafeDelete.h"
 #include "Skydome.h"
+#include "CameraController.h"
 #include "Sprite.h"
+#include "SafeDelete.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
@@ -60,7 +61,11 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	//スカイドーム
 	Skydome* skydome_ = nullptr;
+	//マップチップフィールド
 	MapChipField* mapChipField_;
+	//カメラコントローラー
+	CameraController* cameraController_;
+	//テクスチャー
 	uint32_t textureHandle_ = 0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;

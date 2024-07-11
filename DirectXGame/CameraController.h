@@ -1,31 +1,51 @@
-﻿#include"Player.h"
-#include"ViewProjection.h"
-class Player;class CameraController {
+﻿#include "ViewProjection.h"
+//#include "Player.h"
+
+// 前方宣言
+class Player;
+
+/// カメラコントローラ
+/// </summary>
+class CameraController {
+
 public:
-	// カメラの動ける範囲を制限するための構造体
+	// 矩形
 	struct Rect {
-		float left = 0.0f;
-		float right = 0.0f;
-		float bottom = 0.0f;
-		float top = 0.0f;
+		float left = 0.0f;   // 左端
+		float right = 1.0f;  // 右端
+		float bottom = 0.0f; // 下端
+		float top = 1.0f;    // 上端
 	};
-	// 座標保管
-	static inline const float kintpolationRate = 0.5f;
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-	void SetTarget(Player* target) { target_ = target; };
+
+	void SetTarget(Player* target) { target_ = target; }
 	void Reset();
-	Vector3 targetoffset = {0, 0, -15.0f};
-	Vector3 goalTarget;
-	void SetMovableArea(Rect area) { movableAria_ = area; };
-	viewProjection_.translation_ = Lerp(viewProjection_.translation_, goalTarget, kintpolationRate);
-	//{lerp(X,X2,t){return{(1.0f-time)*X+time*X2;}
-	// Lerp関数Vector3 Lerp(Vector3& v1,Vector3& v2,float t){
-	// return Vector3(Lerp(V1.X,V2.X,t),Vector3(Lerp(V1.Y,V2.Y,t),Vector3(Lerp(V1.X,V2.X,t));
+
+	ViewProjection& GetViewProjection() { return viewProjection_; }
+
+	void SetMovableArea(Rect area) { movableArea_ = area; }
+	float Lerp(float x1, float x2, float t) { return (1.0f - t) * x1 + t * x2;}
 
 private:
+	// ビュープロジェクション
 	ViewProjection viewProjection_;
 	Player* target_ = nullptr;
-	Rect movableAria_ = {0, 100, 0, 100};
+	// 追従対象とカメラの座標の差（オフセット）
+	Vector3 targetOffset_ = {0, 0, -30.0f};
 
+	 // カメラ移動範囲
+	Rect movableArea_ = {0, 100, 0, 100};
+	Vector3 destination_;
+	static inline const Rect targetMargin = {-9.0f, 9.0f, -5.0f, 5.0f};
+	static inline const float kInterpolationRate_ = 0.1f;
+	static inline const float kVelocityBias_ = 30.0f;
 };

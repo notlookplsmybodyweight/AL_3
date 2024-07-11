@@ -8,7 +8,7 @@
 #include"Easing.h"
 
 //uint32_t textureHandle 
-void Player::Initialize(Model* model, ViewProjection* viewProjection,const Vector3 position) {
+void Player::Initialize(ViewProjection* viewProjection,const Vector3 position) {
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
@@ -20,8 +20,7 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection,const Vecto
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 
 	// 引数の内容をメンバ変数に記録
-	assert(model);
-	model_ = model; //	textureHandle_ = textureHandle;
+	model_ = Model::CreateFromOBJ("player");//	textureHandle_ = textureHandle;
 }
 
 

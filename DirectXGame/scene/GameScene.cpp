@@ -13,7 +13,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	
 	delete player_, delete model_, delete modelBlock_, delete debugCamera_,
-	    delete mapChipField_,delete skydome_,delete modelSkydome_;
+	    delete mapChipField_,delete skydome_,delete modelSkydome_,delete cameraController_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_)
 		for (WorldTransform* worldTrandformBlock : worldTransformBlockLine) {
 			delete worldTrandformBlock;
@@ -28,14 +28,18 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	model_ = Model::Create();
-	modelPlayer_ = Model::CreateFromOBJ("player");
 	modelBlock_ = Model::CreateFromOBJ("block");
 	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
+
 	player_ = new Player();
+
+	cameraController_ = new CameraController();
 	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(2, 18);
-	player_->Initialize(modelPlayer_, &viewProjection_,playerposition_);
+	cameraController_->Initialize();
+	cameraController_->Reset();
+	player_->Initialize(&viewProjection_,playerposition_);
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
@@ -55,7 +59,7 @@ void GameScene::Initialize() {
 
 	 //playerposition_;
 
-	player_->Initialize(model_, &viewProjection_,playerposition_ );
+//	player_->Initialize(model_, &viewProjection_,playerposition_ );
 
 	//<<<<<<< Updated upstream
 	//=======
@@ -114,7 +118,7 @@ void GameScene::Update() {
 
 	debugCamera_->Update();
 	player_->Update();
-
+	cameraController_->Update();
 	// ブロックの更新
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -152,6 +156,7 @@ void GameScene::Draw() {
 	Model::PreDraw(commandList);
 	skydome_->Draw();
 	player_->Draw();
+
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	

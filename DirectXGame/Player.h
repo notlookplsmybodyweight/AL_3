@@ -21,7 +21,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-		void Initialize(Model* model, ViewProjection* viewProjection,Vector3 position);
+		void Initialize(ViewProjection* viewProjection,Vector3 position);
 	//void Initialize(const Vector3& position, ViewProjection* viewProjection);
 
 	/// <summary>
