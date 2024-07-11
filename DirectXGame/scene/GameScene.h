@@ -1,21 +1,19 @@
 #pragma once
-//一番上に書かない
-#include<vector>
+// 一番上に書かない
+#include <vector>
 #include "Audio.h"
+#include "DebugCamera.h"
 #include "DirectXCommon.h"
 #include "Input.h"
+#include "MapChipField.h"
 #include "Model.h"
+#include "MyMath.h"
+#include "Player.h"
 #include "SafeDelete.h"
+#include "Skydome.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include"MapChipField.h"
-#include "Player.h"
-#include "MyMath.h"
-#include"DebugCamera.h"
-#include"Skydome.h"
-#include"CameraController.h"
-
 
 /// <summary>
 /// ゲームシーン
@@ -47,36 +45,31 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
-	void GenerateBlocks();
-
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	//モデルデータ
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Model* modelSkydome_ = nullptr;
+	Model* modelPlayer_ = nullptr;
+	//自キャラ
 	Player* player_ = nullptr;
+	//スカイドーム
 	Skydome* skydome_ = nullptr;
-	MapChipField* mapChipData_ = nullptr;
-	CameraController* cameraContraller_ = nullptr;
-
-	
-	uint32_t textureHandle_ =0;
+	MapChipField* mapChipField_;
+	uint32_t textureHandle_ = 0;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
-	
-	std::vector<std::vector <WorldTransform*>>worldTransformBlocks_;
-	//std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	// std::vector <std::vector<WorldTransform*>> worldTransformBlocks_;
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-
-
-
-
 
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	void GenerateBlocks();
 };
