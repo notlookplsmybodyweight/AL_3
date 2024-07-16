@@ -6,7 +6,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete player_, delete model_, delete modelBlock_, delete debugCamera_;
+	delete player_, delete model_, delete modelBlock_,delete modelSkydome_, delete debugCamera_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_)
 		for (WorldTransform* worldTrandformBlock : worldTransformBlockLine) {
 			delete worldTrandformBlock;
@@ -23,6 +23,7 @@ void GameScene::Initialize() {
 	BackGraundTextureHandle_ = TextureManager::Load("sphere/sample.png");
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
+	modelSkydome_ = Model::CreateFromOBJ("sphere",true);
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	player_ = new Player();
