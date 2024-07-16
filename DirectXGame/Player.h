@@ -21,8 +21,9 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-		void Initialize(Model* model, ViewProjection* viewProjection,Vector3 position);
+		void Initialize(Model* model, ViewProjection* viewProjection,const Vector3 position);
 	//void Initialize(const Vector3& position, ViewProjection* viewProjection);
+
 
 	/// <summary>
 	/// 更新
@@ -34,6 +35,9 @@ public:
 	/// </summary>
 	void Draw();
 	//AABB GetAABB() { WorldPos.x - kWidth / 2, WorldPos.y - kHeight / 2, worldPos.z - kWidth / 2; }
+	//ゲッター
+	const WorldTransform& GetWorldTransform() const {return worldTransform_;}
+	const Vector3& GetVelosity(){return velocity_;}
 
 private:
 	// ワールド変換データ
@@ -47,9 +51,6 @@ private:
 
 	Vector3 velocity_ = {};
 
-	static inline const float kAcceleration = 0.01f;
-	static inline const float kAttenuation = 0.01f;
-	static inline const float kLimitRunSpeed = 2.0f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -58,13 +59,16 @@ private:
 	// 旋回タイマー
 	float turnTimer_ = 0.0f;
 
-	// 旋回時間<秒>
-	static inline const float kTimeTurn = 0.3f;
-
 	// 接地状態フラグ
 	bool onGround_ = true;
 	// 着地フラグ
 	bool landing = false;
+
+	static inline const float kAcceleration = 0.01f;
+	static inline const float kAttenuation = 0.01f;
+	static inline const float kLimitRunSpeed = 2.0f;
+	// 旋回時間<秒>
+	static inline const float kTimeTurn = 0.3f;
 
 	// 重力加速度（下方向）
 	static inline const float kGravityAcceleration = 0.05f;
