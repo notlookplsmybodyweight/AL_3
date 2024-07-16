@@ -8,12 +8,13 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 
-GameScene::GameScene() {}
+GameScene::GameScene() {
+}
 
 GameScene::~GameScene() {
 	
 	delete player_, delete model_, delete modelBlock_, delete debugCamera_,
-	    delete mapChipField_,delete skydome_,delete modelSkydome_,delete cameraController_;
+	    delete mapChipField_,delete modelSkydome_,delete cameraController_;
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_)
 		for (WorldTransform* worldTrandformBlock : worldTransformBlockLine) {
 			delete worldTrandformBlock;
@@ -28,6 +29,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	model_ = Model::Create();
+	modelPlayer_ = Model::CreateFromOBJ("player");
 	modelBlock_ = Model::CreateFromOBJ("block");
 	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
 	worldTransform_.Initialize();
@@ -37,7 +39,12 @@ void GameScene::Initialize() {
 
 	cameraController_ = new CameraController();
 	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(2, 18);
+	CameraController::Rect cameraArea = {12.0f,100-12.0f,6.0f,6.0f};
+
+	cameraController_->SetMovableArea( cameraArea);
 	cameraController_->Initialize();
+	cameraController_->SetTarget(player_);
+	
 	cameraController_->Reset();
 	player_->Initialize(&viewProjection_,playerposition_);
 	mapChipField_ = new MapChipField;
@@ -114,6 +121,10 @@ void GameScene::Update() {
 	} else {
 		// ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
+		viewProjection_.matView=cameraController_->GetViewProjection().matView;
+		viewProjection_.matProjection=cameraController_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+
 	}
 
 	debugCamera_->Update();
