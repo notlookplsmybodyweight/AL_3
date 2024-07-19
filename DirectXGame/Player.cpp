@@ -1,7 +1,7 @@
 ﻿#define NOMINMAX
+#include<algorithm>
 #include<cassert>
 #include<numbers>
-#include<algorithm>
 #include"Player.h"
 #include"Input.h"
 #include"DirectXCommon.h"
@@ -165,14 +165,6 @@ turnTimer_ = 0.7f;
 	worldTransform_.TransferMatrix();
 
 }
-
-
-
-
-
-
-
-
 void Player::Draw() {
 
 	// 3Dモデルを描画
@@ -182,3 +174,7 @@ void Player::Draw() {
 //	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
 //
 //}
+
+WorldTransform& Player::GetWorldTransform() {
+	return worldTransform_;
+}

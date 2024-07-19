@@ -1,6 +1,8 @@
 ﻿
 
 #include "MyMath.h"
+#include <cmath>
+
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
 	Matrix4x4 result = Multiply(
 	    Multiply(MakeRotateXMatrix(rotate.x), MakeRotateYMatrix(rotate.y)),
@@ -91,6 +93,7 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Ve
 
 		return result;
 	}
+
 	// 単項演算子オーバーロード
 Vector3 operator+(const Vector3& v) { 
 	return v;
@@ -139,5 +142,11 @@ const Vector3 operator*(float s, const Vector3& v) { return v * s; }
 const Vector3 operator/(const Vector3& v, float s) {
 	Vector3 temp(v);
 	return temp /= s;
+}
+Matrix4x4 MakeIdentityMatrix()
+{
+	static const Matrix4x4 result{1.0,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f};
+	return result;
+
 }
 

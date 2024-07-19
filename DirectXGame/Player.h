@@ -35,6 +35,8 @@ public:
 	void Draw();
 	//AABB GetAABB() { WorldPos.x - kWidth / 2, WorldPos.y - kHeight / 2, worldPos.z - kWidth / 2; }
 
+	WorldTransform& GetWorldTransform();
+	const Vector3& GetVerosity();
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;

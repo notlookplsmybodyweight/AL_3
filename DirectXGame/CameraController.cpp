@@ -1,24 +1,29 @@
 ﻿
-
 #include <algorithm>
-#include "CameraController.h"
+#include <iostream>
 #include "Player.h"
+#include "string.h"
+#include "CameraController.h"
+
+#include"MyMath.h"
 
 /// 初期化
-const void CameraController::Initialize() { 
+
+void CameraController::Initialize() { 
 	viewProjection_.Initialize();
 }
 
 /// 更新
+
 void CameraController::Update() {
+
+	SetTarget(target_);
 
 	// 追従対象のワールドトランスフォームを参照
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
-	Vector3 targetVelocity = target_->GetVelocity();
-
-	destination_.x = targetWorldTransform.translation_.x + targetOffset_.x * targetVelocity.x + targetOffset_.x;
-	destination_.y = targetWorldTransform.translation_.y + targetOffset_.y * targetVelocity.y + targetOffset_.y;
-	destination_.z = targetWorldTransform.translation_.z + targetOffset_.z * targetVelocity.z + targetOffset_.z;
+	destination_.x = targetWorldTransform.translation_.x + targetOffset_.x;
+	destination_.y = targetWorldTransform.translation_.y + targetOffset_.y;
+	destination_.z = targetWorldTransform.translation_.z + targetOffset_.z;
 
 	viewProjection_.translation_.x = Lerp(viewProjection_.translation_.x,destination_.x, kInterpolationRate_);
 	viewProjection_.translation_.y = Lerp(viewProjection_.translation_.y, destination_.y, kInterpolationRate_);

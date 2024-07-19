@@ -1,12 +1,15 @@
-﻿#include "ViewProjection.h"
-#include "Vector3.h"
+﻿
+//#include "Vector3.h"
 //#include "Player.h"
+#include "ViewProjection.h"
 
 // 前方宣言
+
 class Player;
 
 /// カメラコントローラ
 /// </summary>
+
 class CameraController {
 
 public:
@@ -31,22 +34,23 @@ public:
 	void SetTarget(Player* target) { target_ = target; }
 	void Reset();
 
-	ViewProjection& GetViewProjection() { return viewProjection_; }
+	//ViewProjection& GetViewProjection() ;
 	
 
 	void SetMovableArea(Rect area) { movableArea_ = area; }
 	float Lerp(float x1, float x2, float t) { return (1.0f - t) * x1 + t * x2;}
-
+	const ViewProjection& GetViewProjection(){ return viewProjection_;}
 private:
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
+
 	Player* target_ = nullptr;
 	// 追従対象とカメラの座標の差（オフセット）
 	Vector3 targetOffset_ = {0, 0, -30.0f};
 
-	 // カメラ移動範囲
+	 // カメラ移動範囲  
 	 Rect movableArea_ = {0, 100, 0, 100};
-	Vector3 destination_;
+	Vector3 destination_={};
 	static inline const Rect targetMargin = {-9.0f, 9.0f, -5.0f, 5.0f};
 	static inline const float kInterpolationRate_ = 0.1f;
 	static inline const float kVelocityBias_ = 30.0f;

@@ -1,5 +1,5 @@
 ﻿#include "Vector3.h"
-#include"GameScene.h"
+#include "Matrix4x4.h"
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
 
 Matrix4x4 MakeRotateXMatrix(float radian);	
@@ -26,4 +26,5 @@ const Vector3 operator*(float s, const Vector3& v);
 const Vector3 operator/(const Vector3& v, float s);
 //
 
+Matrix4x4 MakeIdentityMatrix();
 

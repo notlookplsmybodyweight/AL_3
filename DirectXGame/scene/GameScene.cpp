@@ -36,23 +36,21 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	player_ = new Player();
-
 	cameraController_ = new CameraController();
-	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(2, 18);
-	CameraController::Rect cameraArea = {12.0f,100-12.0f,6.0f,6.0f};
+	mapChipField_ = new MapChipField;
+	skydome_ = new Skydome();
 
+	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(2, 18);
+	player_->Initialize(&viewProjection_,playerposition_);
+	CameraController::Rect cameraArea = {12.0f,100-12.0f,6.0f,6.0f};
 	cameraController_->SetMovableArea( cameraArea);
 	cameraController_->Initialize();
 	cameraController_->SetTarget(player_);
-	
 	cameraController_->Reset();
-	player_->Initialize(&viewProjection_,playerposition_);
-	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
+	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 	//<<<<<<< Updated upstream
 	//=======
-	skydome_ = new Skydome();
 	//<<<<<<< Updated upstream
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);
 
@@ -116,6 +114,7 @@ void GameScene::Update() {
 		debugCamera_->Update();
 		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	} else {
