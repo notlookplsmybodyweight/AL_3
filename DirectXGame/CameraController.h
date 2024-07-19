@@ -40,6 +40,7 @@ public:
 	void SetMovableArea(Rect area) { movableArea_ = area; }
 	float Lerp(float x1, float x2, float t) { return (1.0f - t) * x1 + t * x2;}
 	const ViewProjection& GetViewProjection(){ return viewProjection_;}
+
 private:
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
