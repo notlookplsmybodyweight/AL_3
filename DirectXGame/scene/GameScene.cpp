@@ -35,13 +35,12 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 
-	player_ = new Player();
 	cameraController_ = new CameraController();
 	mapChipField_ = new MapChipField;
+	player_ = new Player();
 	skydome_ = new Skydome();
 
 	Vector3 playerposition_ = mapChipField_->GetMapChipPositionTypeByIndex(2, 18);
-	player_->Initialize(&viewProjection_,playerposition_);
 	CameraController::Rect cameraArea = {12.0f,100-12.0f,6.0f,6.0f};
 	cameraController_->SetMovableArea( cameraArea);
 	cameraController_->Initialize();
@@ -49,6 +48,7 @@ void GameScene::Initialize() {
 	cameraController_->Reset();
 
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
+	player_->Initialize(&viewProjection_,playerposition_);
 	//<<<<<<< Updated upstream
 	//=======
 	//<<<<<<< Updated upstream
@@ -65,7 +65,7 @@ void GameScene::Initialize() {
 	 //playerposition_;
 
 //	player_->Initialize(model_, &viewProjection_,playerposition_ );
-
+	player_->SetMapChipField(mapChipField_);
 	//<<<<<<< Updated upstream
 	//=======
 	skydome_->Initialize(modelSkydome_, textureHandle_, &viewProjection_);

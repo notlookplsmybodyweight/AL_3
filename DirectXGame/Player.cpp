@@ -178,3 +178,12 @@ void Player::Draw() {
 WorldTransform& Player::GetWorldTransform() {
 	return worldTransform_;
 }
+const Vector3 & Player::GetVerosity()
+{
+ return velocity_;
+}
+void Player::SetMapChipField(MapChipField * mapChipField_)
+{
+	
+	mapChipField_;
+}

@@ -1,12 +1,24 @@
 ﻿#include "Model.h"
 #include "WorldTransform.h"
 #include "ViewProjection.h"
+class MapChipField;
 class Player {
 public:
 	// 左右
 	enum class LRDirection {
 		kRight,
 		kLeft,
+	};
+	//右下、左下、右上、左上、要素数
+	enum Corner {
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+		kNumCorner
+	};
+	struct CollisionMapinfo {
+
 	};
 	//typedef struct AABB {
 	//	Vector3 min;
@@ -37,7 +49,16 @@ public:
 
 	WorldTransform& GetWorldTransform();
 	const Vector3& GetVerosity();
+
+	 void SetMapChipField(MapChipField* mapChipField_);
+
 private:
+	//キャラクター当たり判定のサイズ
+	static inline const float kWidth = 8.0f;
+	static inline const float kheight = 8.0f;
+
+	//マップチップによるフィールド
+	MapChipField* mapChipField_ = nullptr;
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 	// モデル
@@ -67,7 +88,6 @@ private:
 	bool onGround_ = true;
 	// 着地フラグ
 	bool landing = false;
-
 	// 重力加速度（下方向）
 	static inline const float kGravityAcceleration = 0.05f;
 	// 最大落下速度（下方向）
