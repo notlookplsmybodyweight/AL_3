@@ -5,6 +5,7 @@
 #include"Player.h"
 #include"Input.h"
 #include"DirectXCommon.h"
+#include"MapChipField.h"
 #include"Easing.h"
 
 //uint32_t textureHandle 
@@ -182,8 +183,8 @@ const Vector3 & Player::GetVerosity()
 {
  return velocity_;
 }
-void Player::SetMapChipField(MapChipField * mapChipField_)
+void Player::SetMapChipField(MapChipField * newmapChipField_)
 {
 	
-	mapChipField_;
+	this -> mapChipField_ = newmapChipField_;
 }
